@@ -1,18 +1,22 @@
 ﻿using SQLite;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NotesApp.Model
 {
-    public class Notebook: INotifyPropertyChanged
+    public class Notebook : INotifyPropertyChanged
     {
         private int id;
-
         [PrimaryKey, AutoIncrement]
         public int Id
         {
             get { return id; }
-            set 
-            { 
+            set
+            {
                 id = value;
                 OnPropertyChanged("Id");
             }
@@ -23,8 +27,8 @@ namespace NotesApp.Model
         public int UserId
         {
             get { return userId; }
-            set 
-            { 
+            set
+            {
                 userId = value;
                 OnPropertyChanged("UserId");
             }
@@ -35,8 +39,8 @@ namespace NotesApp.Model
         public string Name
         {
             get { return name; }
-            set 
-            { 
+            set
+            {
                 name = value;
                 OnPropertyChanged("Name");
             }
@@ -46,7 +50,8 @@ namespace NotesApp.Model
 
         private void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

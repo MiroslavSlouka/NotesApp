@@ -1,18 +1,21 @@
 ﻿using SQLite;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NotesApp.Model
 {
-    public class Note: INotifyPropertyChanged
+    public class Note : INotifyPropertyChanged
     {
         private int id;
-
         [PrimaryKey, AutoIncrement]
         public int Id
         {
             get { return id; }
-            set 
+            set
             {
                 id = value;
                 OnPropertyChanged("Id");
@@ -20,13 +23,12 @@ namespace NotesApp.Model
         }
 
         private int notebookId;
-
         [Indexed]
         public int NotebookId
         {
             get { return notebookId; }
-            set 
-            { 
+            set
+            {
                 notebookId = value;
                 OnPropertyChanged("NotebookId");
             }
@@ -37,10 +39,22 @@ namespace NotesApp.Model
         public string Title
         {
             get { return title; }
-            set 
-            { 
+            set
+            {
                 title = value;
                 OnPropertyChanged("Title");
+            }
+        }
+
+        private DateTime createdTime;
+
+        public DateTime CreatedTime
+        {
+            get { return createdTime; }
+            set
+            {
+                createdTime = value;
+                OnPropertyChanged("CreatedTime");
             }
         }
 
@@ -49,8 +63,8 @@ namespace NotesApp.Model
         public DateTime UpdatedTime
         {
             get { return updatedTime; }
-            set 
-            { 
+            set
+            {
                 updatedTime = value;
                 OnPropertyChanged("UpdatedTime");
             }
@@ -61,7 +75,7 @@ namespace NotesApp.Model
         public string FileLocation
         {
             get { return fileLocation; }
-            set 
+            set
             {
                 fileLocation = value;
                 OnPropertyChanged("FileLocation");
@@ -72,7 +86,8 @@ namespace NotesApp.Model
 
         private void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

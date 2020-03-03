@@ -10,7 +10,7 @@ namespace NotesApp.ViewModel
 {
     public class DatabaseHelper
     {
-        private static readonly string dbFile = Path.Combine(Environment.CurrentDirectory, "notesDb.db3");
+        public static string dbFile = Path.Combine(Environment.CurrentDirectory, "notesDb.db3");
 
         public static bool Insert<T>(T item)
         {
@@ -20,7 +20,6 @@ namespace NotesApp.ViewModel
             {
                 conn.CreateTable<T>();
                 int numberOfRows = conn.Insert(item);
-
                 if (numberOfRows > 0)
                     result = true;
             }
@@ -36,7 +35,6 @@ namespace NotesApp.ViewModel
             {
                 conn.CreateTable<T>();
                 int numberOfRows = conn.Update(item);
-
                 if (numberOfRows > 0)
                     result = true;
             }
@@ -52,7 +50,6 @@ namespace NotesApp.ViewModel
             {
                 conn.CreateTable<T>();
                 int numberOfRows = conn.Delete(item);
-
                 if (numberOfRows > 0)
                     result = true;
             }
